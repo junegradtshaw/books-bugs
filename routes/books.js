@@ -30,11 +30,13 @@ router.get('/books/:id/show', function(req, res, next) {
 
 router.get('/books/:id/edit', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function (book) {
+    console.log('book = ', book)
     res.render('books/edit', {book: book});
   });
 });
 
-router.post('/books/:id', function (req, res, next) {
+router.post('/books/:id/edit', function (req, res, next) {
+  console.log('in the post for edit, ', req.body);
   Books().where('id', req.params.id).update(req.body).then(function (results) {
     res.redirect('/books');
   })

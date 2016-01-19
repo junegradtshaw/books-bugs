@@ -1,34 +1,43 @@
-extends ../layout 
+extends ../layout
 
-block content 
+block content
 
   div.container
     h1 Editing #{book.title}
-    form(action='/books/#{book.id}', method='post')
+    form(action='/books/#{book.id}/edit', method='post')
       div.form-group
         label(for="author") Author
-        input.form-control(type="text" id="author" value= book.author placeholder="Author")
+        input.form-control(type="text" name = "author" id="author" value= "#{book.author}" placeholder="Author")
       div.form-group
         label(for="title") Title
-        input.form-control(type="text" id="title" value= book.title placeholder="Title")
+        input.form-control(type="text" name = "title" id="title" value= "#{book.title}" placeholder="Title")
       div.form-group
           label Rate this book
           p
-            input(type="radio" name="rating" value="1" checked=book.rating===1)
+            if (book.rating === 1)
+              input(type="radio" name="rating" value="1" checked)
+            else
+              input(type="radio" name="rating" value="1" checked)
             one 1 (Lame)
       div.form-group
-        input(type="radio" name="rating" value="2" checked=book.rating===2)
+        if (book.rating === 2)
+          input(type="radio" name="rating" value="2" checked)
+        else
+          input(type="radio" name="rating" value="2" checked)
         two 2
       div.form-group
-        input(type="radio" name="rating" value="3" checked=book.rating===3)
+        if (book.rating === 3)
+          input(type="radio" name="rating" value="3" checked)
+        else
+          input(type="radio" name="rating" value="3" checked)
         three 3
       div.form-group
-        input(type="radio" name="rating" value="4" checked=book.rating===4)
+        if (book.rating === 4)
+          input(type="radio" name="rating" value="4" checked)
+        else
+          input(type="radio" name="rating" value="4" checked)
         four 4 (Awesome)
       div.form-group
         label(for="description") Description
-        textarea.form-control(rows="5" id='description') #{book.description}
+        textarea.form-control(rows="5" name = 'description' id='description') #{book.description}
       button.btn.btn-primary(type="submit") Update
-
-                
-  
