@@ -22,21 +22,24 @@ router.get('/books/new', function(req, res, next) {
   res.render('books/new');
 });
 
-router.get('/books/show', function(req, res, next) {
+router.get('/books/:id/show', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function (book) {
+    console.log('in the show function, book = ', book);
     res.render('books/show', {book: book});
   });
 });
 
 router.get('/books/:id/edit', function(req, res, next) {
   Books().where('id', req.params.id).first().then(function (book) {
+    console.log('here and the book is: ', book);
     res.render('books/edit', {book: book});
   });
 });
 
-router.post('/books/:id', function (req, res, next) {
-  Books().where('id', req.params.id).update(req.body).then(function (results) {
-    res.redirect('/books');
+router.post('/books/:id/edit', function (req, res, next) {
+  Books().where('id', req.params.id).first().update(req.body).then(function () {
+    console.log('just updated the book');
+    res.redirect('/books/' + req.params.id + '/show');
   })
 });
 
